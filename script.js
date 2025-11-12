@@ -1,0 +1,1 @@
+const audio = document.getElementById("marketSound");document.getElementById("playBtn").onclick = () => audio.play();document.getElementById("pauseBtn").onclick = () => audio.pause();document.querySelector("form").onsubmit = () => {  alert("Mail uygulaman açılacak. Bilgileri kontrol ettiğinden emin ol!");};
