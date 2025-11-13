@@ -9,70 +9,89 @@
 </head>
 <body>
   <audio id="marketSound" autoplay loop>
-  <source src="moveforward.mp3" type="audio/mpeg">
-</audio>
+    <source src="moveforward.mp3" type="audio/mpeg">
+  </audio>
   Müzik
-<button id="playBtn" onclick="document.getElementById('marketSound').play()">Başlat</button>
-<button id="pauseBtn" onclick="document.getElementById('marketSound').pause()">Durdur</button>
+  <button id="playBtn" onclick="document.getElementById('marketSound').play()">Başlat</button>
+  <button id="pauseBtn" onclick="document.getElementById('marketSound').pause()">Durdur</button>
+
   <h1>Lumber Tycoon 2 Takas Pazarı</h1>
-  <button onclick="window.location.href='ilanlar.html'">
-  📦 Yayınlanan İlanlar
-</button>
-  <button onclick="window.location.href='botlarımız.html'">
-  🤖 Botlarımız
-</button>
+  <button onclick="window.location.href='ilanlar.html'">📦 Yayınlanan İlanlar</button>
+  <button onclick="window.location.href='botlarımız.html'">🤖 Botlarımız</button>
+
   <p>İlan eklemek için aşağıdaki formu doldur ve “Mail gönder” butonuna bas. Gönderdiğin mail, adminlere ulaşır.</p>
 
   <hr>
 
   <h2>İlan gönderme formu</h2>
-  <!-- admin mail doldur -->
-  <form action="mailto:localstorage64@gmail.com" method="post" enctype="text/plain">
+  <form id="ilanForm">
     <fieldset>
       <legend>Ürün bilgileri</legend>
 
       <label>Satıcı adı:</label><br>
-      <input type="text" name="Satıcı adı"><br><br>
+      <input type="text" name="seller"><br><br>
 
       <label>Kategori:</label><br>
-      <input type="radio" name="Kategori" value="Odun & Kütük"> Odun & Kütük<br>
-      <input type="radio" name="Kategori" value="Balta"> Balta<br>
-      <input type="radio" name="Kategori" value="Araba"> Araba<br>
-      <input type="radio" name="Kategori" value="Gift"> Gift<br>
+      <input type="radio" name="category" value="Odun & Kütük"> Odun & Kütük<br>
+      <input type="radio" name="category" value="Balta"> Balta<br>
+      <input type="radio" name="category" value="Araba"> Araba<br>
+      <input type="radio" name="category" value="Gift"> Gift<br><br>
 
       <label>Ürün adı:</label><br>
-      <input type="text" name="Ürün adı"><br><br>
+      <input type="text" name="product"><br><br>
 
       <label>Durum/Miktar:</label><br>
-      <input type="text" name="Durum/Miktar"><br><br>
+      <input type="text" name="amount"><br><br>
 
       <label>Fiyat (money):</label><br>
-      <input type="text" name="Fiyat"><br><br>
+      <input type="text" name="price"><br><br>
 
       <label>İletişim (Discord veya mail):</label><br>
-      <input type="text" name="İletişim"><br><br>
+      <input type="text" name="contact"><br><br>
 
       <label>Açıklama:</label><br>
-      <textarea name="Açıklama" rows="4" cols="40"></textarea><br><br>
+      <textarea name="desc" rows="4" cols="40"></textarea><br><br>
 
-      <input type="submit" value="Mail gönder">
+      <button type="submit">Mail gönder</button>
       <input type="reset" value="Temizle">
     </fieldset>
   </form>
+
+  <script>
+    document.getElementById("ilanForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const data = {
+        seller: form.seller.value,
+        category: form.category.value,
+        product: form.product.value,
+        amount: form.amount.value,
+        price: form.price.value,
+        contact: form.contact.value,
+        desc: form.desc.value
+      };
+
+      const body = `
+Satıcı adı: ${data.seller}
+Kategori: ${data.category}
+Ürün adı: ${data.product}
+Durum/Miktar: ${data.amount}
+Fiyat: ${data.price}
+İletişim: ${data.contact}
+Açıklama: ${data.desc}
+      `;
+
+      const mailto = `mailto:localstorage64@gmail.com?subject=${encodeURIComponent("LT2 Yeni İlan")}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+    });
+  </script>
 
   <blockquote>
     <a href="https://youtube.com/@lumbertradelt2?si=2GuXV_n80LY-6mf-">Youtube Link</a>
     <a href="https://discord.gg/Eqwn5XTaRN">Discord Link</a>
   </blockquote>
 
-  <hr>
-
-  <h2>Hızlı mail</h2>
-  <p>
-    <a href="mailto:ADMIN_MAIL?subject=LT2%20Yeni%20İlan&body=Sat%C4%B1c%C4%B1%20ad%C4%B1%3A%20%0AKategori%3A%20(Odun%20%7C%20Balta%20%7C%20Ara%C3%A7%20%7C%20Nadir)%0A%C3%9Cr%C3%BCn%20ad%C4%B1%3A%20%0ADurum%2FMiktar%3A%20%0AFiyat%20(money)%3A%20%0A%C4%B0leti%C5%9Fim%3A%20(Discord%20%40tag%20veya%20mail)%0AA%C3%A7%C4%B1klama%3A%20">
-      Mail gönder
-    </a>
-  </p>
   <hr>
 
   <h2>Kurallar ve güvenlik</h2>
@@ -83,6 +102,5 @@
   </ul>
 
   <p><small>Not: Sunucusuz site — İlanlar adminler tarafından manuel olarak listeye eklenir.</small></p>
-
 </body>
 </html>
